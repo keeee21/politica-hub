@@ -9,7 +9,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "format": "eslint --fix . "
+    "format": "eslint --fix . ",
+    "prepare": "husky install",
+    "lint-staged": "pnpm run lint && pnpm run format"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -26,6 +28,8 @@
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
-    "eslint": "^9.17.0"
+    "eslint": "^9.17.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.3.0"
   }
 }
