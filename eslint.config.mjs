@@ -5,15 +5,20 @@ export default withNuxt(
   {
     files: ['**/*.vue', '**/*.ts'],
     rules: {
+      'vue/no-multiple-template-root': 'off',
       'no-console': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {
-    files: ['**/*.vue'],
+    files: ['**/components/*.vue'],
     rules: {
-      'vue/no-multiple-template-root': 'error',
       'vue/multi-word-component-names': 'error',
+    },
+  },
+  {
+    files: ['**/pages/*.vue'],
+    rules: {
       'vue/require-v-for-key': 'error',
       'vue/no-use-v-if-with-v-for': 'error',
     },
