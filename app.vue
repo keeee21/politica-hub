@@ -1,5 +1,27 @@
+<script setup lang="ts">
+import { useHead } from '#imports'
+import TheHeader from '@/components/TheHeader.vue'
+useHead({
+  htmlAttrs: {
+    lang: 'ja',
+  },
+  charset: 'utf-8',
+  title: 'Politica-Hub',
+  meta: [
+    {
+      name: 'robots',
+      content: 'noindex, nofollow',
+    },
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1.0',
+    },
+  ],
+})
+</script>
 <template>
   <div>
-    <h1 class="text-2xl font-bold text-center">Vue.jsの基礎</h1>
+    <TheHeader />
+    <NuxtPage />
   </div>
 </template>
