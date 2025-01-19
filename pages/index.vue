@@ -1,45 +1,11 @@
 <script setup lang="ts">
-import PoliticalTopicCard from '@/components/PoliticalTopicCard.vue'
-
-const json = [
-  {
-    title: '経済',
-    description: '経済に関する情報です',
-  },
-  {
-    title: '財政・税',
-    description: '財政・税に関する情報です',
-  },
-  {
-    title: '行政・政治改革',
-    description: '行政・政治改革に関する情報です',
-  },
-  {
-    title: '働き方',
-    description: '働き方に関する情報です',
-  },
-  {
-    title: '子育て・教育',
-    description: '子育てに関する情報です',
-  },
-  {
-    title: '社会保障',
-    description: '社会保障に関する情報です',
-  },
-  {
-    title: '教育',
-    description: '教育に関する情報です',
-  },
-  {
-    title: '医療',
-    description: '医療に関する情報です',
-  },
-]
 
 </script>
 
 <template>
-  <div v-for="item in json" :key="item.title">
-    <PoliticalTopicCard :title="item.title" :description="item.description" />
+  <div>
+    <h2><NuxtLink to="/topic">争点の前提知識を知る</NuxtLink></h2>
+    <h2><NuxtLink to="/party">政党を調べる</NuxtLink></h2>
+    <h2><NuxtLink to="/keywords">用語・概念を調べる</NuxtLink></h2>
   </div>
 </template>
