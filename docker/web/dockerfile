@@ -1,0 +1,35 @@
+FROM node:20.10.0
+
+#-------------------------------------------------
+# set up postgresql client
+#-------------------------------------------------
+RUN apt-get update && apt-get install -y wget gnupg lsb-release
+
+#-------------------------------------------------
+# set up tinyproxy to minio
+#-------------------------------------------------
+RUN sh -c 'mkdir /tmp/tinyproxy && cd /tmp/tinyproxy && wget --quiet https://github.com/tinyproxy/tinyproxy/releases/download/1.11.2/tinyproxy-1.11.2.tar.gz'
+RUN sh -c 'cd /tmp/tinyproxy && tar zxf tinyproxy-1.11.2.tar.gz && cd tinyproxy-1.11.2 && ./configure && make && make install && cd && rm -rf /tmp/tinyproxy'
+RUN sh -c '[ ! -d /var/www ] && mkdir /var/www'
+COPY tinyproxy.conf /var/www/
+
+# PostgreSQL Global Development Group (PGDG) リポジトリのGPGキーを追加
+RUN wget -qO - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    gpg --dearmor -o /usr/share/keyrings/postgresql.gpg
+
+# PostgreSQL リポジトリを追加
+RUN echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+    > /etc/apt/sources.list.d/pgdg.list
+
+# PostgreSQLクライアントをインストール
+RUN apt-get update && apt-get install -y postgresql-client-16 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+#-------------------------------------------------
+# Install pnpm
+#-------------------------------------------------
+RUN npm install -g pnpm
+
+ENV PATH=./node_modules/.bin:$PATH
+
+CMD ["/usr/bin/bash"]

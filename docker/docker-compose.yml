@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    container_name: politica-hub_db
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_db
+      POSTGRES_USER: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  s3:
+    image: minio/minio:latest
+    container_name: politica-hub_s3
+    ports:
+      - '9000:9000'
+      - '8900:8900'
+    volumes:
+      - ./minio/data:/data
+    command: server /data --console-address ':8900'
+    environment:
+      MINIO_ROOT_USER: local_test_s3_access_key
+      MINIO_ROOT_PASSWORD: local_test_s3_secret_key
+  s3CreateBucket:
+    image: minio/minio:latest
+    container_name: politica-hub_s3-createBucket
+    depends_on:
+      - s3
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set my_minio http://s3:9000 local_test_s3_access_key local_test_s3_secret_key;
+      mc mb --ignore-existing my_minio/files.localhost;
+      exit 0;
+      "
+  web:
+    build: ./web
+    container_name: politica-hub_web
+    ports:
+      - '3000:3000'
+    volumes:
+      - ../:/var/www/box
+    working_dir: /var/www/box
+    environment:
+      - PATH=./node_modules/.bin:$PATH
+    command: sh -c 'rm -rf ./nuxt; rm -rf ./output; rm -rf /tmp/nitro; pnpm install --no-offline; pnpm dev;'
+    depends_on:
+      - db
+      - s3
+
+volumes:
+  postgres_data:
+networks:
+  default:
+    name: politica-hub_net

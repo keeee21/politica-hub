@@ -1,76 +1,17 @@
-# Nuxt Minimal Starter
-
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 # politica-hub
+
+## setup
+
+``bash compose.sh up``
+
+## minio
+
+基本的には docker-comopse up をすれば起動する。
+起動したあとは
+
+- http://localhost:8900/login 　にアクセス
+- docker-compose の MINIO_ROOT_USER、MINIO_ROOT_PASSWORD を入力してログイン
+- fiels.localhost というバケットが作成されている
+- 自分がアップロードした画像を探す
+
+というような手順で画像が実際にアップロードされているかどうかの確認はできる。

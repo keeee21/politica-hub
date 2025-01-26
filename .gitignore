@@ -23,5 +23,7 @@ logs
 .env.*
 !.env.example
 
+minio
+.pnpm-store
 # Local data files
 data/*.json
