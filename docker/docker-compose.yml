@@ -40,8 +40,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ../:/var/www/box
-    working_dir: /var/www/box
+      - ../frontend:/var/www/politica-hub
+    working_dir: /var/www/politica-hub
     environment:
       - PATH=./node_modules/.bin:$PATH
     command: sh -c 'rm -rf ./nuxt; rm -rf ./output; rm -rf /tmp/nitro; pnpm install --no-offline; pnpm dev;'
