@@ -6,6 +6,8 @@ services:
     ports:
       - '5433:5432'
     environment:
+      TZ: Asia/Tokyo
+      PGTZ: Asia/Tokyo  
       POSTGRES_PASSWORD: your_password
       POSTGRES_DB: your_db
       POSTGRES_USER: postgres
