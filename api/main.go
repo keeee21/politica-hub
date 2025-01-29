@@ -81,8 +81,8 @@ func main() {
 	urls := []string{
 		"https://www.nhk.or.jp/rss/news/cat4.xml",
 		"https://assets.wor.jp/rss/rdf/sankei/politics.rdf",
-        "https://assets.wor.jp/rss/rdf/yomiuri/politics.rdf",
-        "https://assets.wor.jp/rss/rdf/ynnews/politics.rdf",
+		"https://assets.wor.jp/rss/rdf/yomiuri/politics.rdf",
+		"https://assets.wor.jp/rss/rdf/ynnews/politics.rdf",
 	}
 
 	for _, url := range urls {
