@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"main/config"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -27,12 +28,12 @@ func ConnectDB() (*sql.DB, error) {
 }
 
 // InsertNews ニュースデータをDBに挿入
-func InsertNews(db *sql.DB, title, url, description string) error {
+func InsertNews(db *sql.DB, title, url, description string, publishedAt time.Time) error {
 	query := `
-        INSERT INTO news (title, url, description)
-        VALUES ($1, $2, $3)
+        INSERT INTO news (title, url, description, published_at)
+        VALUES ($1, $2, $3, $4)
         ON CONFLICT (url) DO NOTHING;
     `
-	_, err := db.Exec(query, title, url, description)
+	_, err := db.Exec(query, title, url, description, publishedAt)
 	return err
 }

@@ -7,6 +7,7 @@ import (
 	"main/config"
 	"main/db"
 	"main/fetch"
+	"main/util"
 )
 
 func main() {
@@ -41,7 +42,13 @@ func main() {
 
 			for _, item := range items {
 				fmt.Printf("- %s\n  Link: %s\n  Description: %s\n\n", item.Title, item.Link, item.Desc)
-				err = db.InsertNews(database, item.Title, item.Link, item.Desc)
+
+				pubTime, err := util.ParsePublishedAt(item.PublishedAt)
+				if err != nil {
+						log.Println("Error parsing date:", err)
+				}
+
+				err = db.InsertNews(database, item.Title, item.Link, item.Desc, pubTime)
 				if err != nil {
 					fmt.Printf("Error inserting RDF item into DB: %v\n", err)
 				}
@@ -55,7 +62,13 @@ func main() {
 
 			for _, item := range items {
 				fmt.Printf("- %s\n  Link: %s\n  Description: %s\n\n", item.Title, item.Link, item.Description)
-				err = db.InsertNews(database, item.Title, item.Link, item.Description)
+
+				pubTime, err := util.ParsePublishedAt(item.PublishedAt)
+				if err != nil {
+						log.Println("Error parsing date:", err)
+				}
+
+				err = db.InsertNews(database, item.Title, item.Link, item.Description, pubTime)
 				if err != nil {
 					fmt.Printf("Error inserting RSS item into DB: %v\n", err)
 				}
