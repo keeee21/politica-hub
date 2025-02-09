@@ -1,5 +1,9 @@
-import prisma from "@/lib/prisma"
+import prisma from "@/lib/prisma";
 
-export default defineEventHandler(async(event) => {
-  return await prisma.news.findMany()
-})
+export default defineEventHandler(async (event) => {
+  return await prisma.news.findMany({
+    orderBy: {
+      id: "desc",
+    },
+  });
+});
