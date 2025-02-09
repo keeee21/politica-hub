@@ -5,6 +5,6 @@ import TheTitle from '@/components/ui/TheTitle.vue'
 <template>
   <TheTitle
     title="news"
-    text-align="text-center"
+    title-align="text-left"
   />
 </template>
