@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import TheTitle from '@/components/ui/TheTitle.vue'
 import PoliticalKeywordCard from '@/components/pages/keywords/PoliticalKeywordCard.vue'
 import politicalKeywords from '@/data/political-keywords.json'
 
@@ -25,9 +26,10 @@ const clearSelection = () => {
 </script>
 
 <template>
-  <div class="p-5">
-    <h1 class="text-3xl font-bold text-center">政治に関する言葉の概要を理解する</h1>
-  </div>
+  <TheTitle
+    title="政治に関する言葉の概要を理解する"
+    title-align="text-center"
+  />
   <div class="grid grid-cols-2 h-screen">
     <div class="p-5">
       <div class="flex flex-wrap gap-4">

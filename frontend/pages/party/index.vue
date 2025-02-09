@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import TheTitle from '@/components/ui/TheTitle.vue'
 import PoliticalPartyCard from '~/components/pages/party/PoliticalPartyCard.vue'
 import politicalParty from '@/data/master-political-party.json'
 
@@ -20,9 +21,10 @@ const clearSelection = () => {
 </script>
 
 <template>
-  <div class="p-5">
-    <h1 class="text-3xl font-bold text-center">政党について理解する</h1>
-  </div>
+  <TheTitle
+    title="政党について理解する"
+    title-align="text-center"
+  />
   <div class="grid grid-cols-2 h-screen">
     <div class="p-5">
       <div class="flex flex-wrap gap-4">

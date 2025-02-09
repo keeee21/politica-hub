@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import TheTitle from '@/components/ui/TheTitle.vue'
 </script>
 
 <template>
-  <div class="p-5">
-    <h1 class="text-3xl font-bold text-center">会社員の生活に関わるあれこれを理解する</h1>
-    <p class="p-4 text-center">正確さよりも、まずはざっくり分かりやすく理解できるように</p>
-  </div>
+  <TheTitle
+    title="会社員の生活に関わるあれこれを理解する"
+    title-align="text-center"
+    show-description
+    description="正確さよりも、まずはざっくり分かりやすく理解できるように"
+    description-align="text-center"
+  />
 
   <div class="grid grid-cols-1 h-screen justify-items-center">
     <div class="p-5 w-full max-w-lg">
