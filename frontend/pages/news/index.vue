@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { convISOStringToJST } from '@/utils/date';
-import TheTitle from '@/components/ui/TheTitle.vue';
-import { useGetNews } from '@/composables/news/useGetNews';
+import { convISOStringToJST } from '@/utils/date'
+import TheTitle from '@/components/ui/TheTitle.vue'
+import { useGetNews } from '@/composables/news/useGetNews'
 
-const { data, status, error, refresh, clear } = useGetNews();
+const { data, status, error, refresh, clear } = useGetNews()
 </script>
 
 <template>
@@ -29,7 +29,6 @@ const { data, status, error, refresh, clear } = useGetNews();
         <!-- 日付 -->
         <div class="flex justify-between items-center text-gray-500 text-sm">
           <span>{{ convISOStringToJST(news.published_at) }}</span>
-          {{ typeof news.published_at }}
         </div>
 
         <!-- タイトル -->
