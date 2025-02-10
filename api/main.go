@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log"
-
 	"main/config"
+	"main/controller"
 	"main/db"
-	"main/fetch"
-	"main/util"
+	"main/repository"
+	"main/usecase"
 )
 
 func main() {
@@ -21,58 +20,11 @@ func main() {
 	}
 	defer database.Close()
 
-	// RSS/RDF URLリスト
-	urls := []string{
-		"https://www.nhk.or.jp/rss/news/cat4.xml",
-		"https://assets.wor.jp/rss/rdf/sankei/politics.rdf",
-		"https://assets.wor.jp/rss/rdf/yomiuri/politics.rdf",
-		"https://assets.wor.jp/rss/rdf/ynnews/politics.rdf",
-	}
+	// DI (依存関係の注入)
+	newsRepo := repository.NewNewsRepository(database)
+	newsUsecase := usecase.NewNewsUsecase(newsRepo)
+	newsController := controller.NewNewsController(newsUsecase)
 
-	// フィード取得とデータ挿入
-	for _, url := range urls {
-		fmt.Printf("Fetching feed from: %s\n", url)
-
-		if url[len(url)-4:] == ".rdf" {
-			items, err := fetch.FetchRDFFeed(url)
-			if err != nil {
-				fmt.Printf("Error fetching RDF feed from %s: %v\n", url, err)
-				continue
-			}
-
-			for _, item := range items {
-				fmt.Printf("- %s\n  Link: %s\n  Description: %s\n\n", item.Title, item.Link, item.Desc)
-
-				pubTime, err := util.ParsePublishedAt(item.PublishedAt)
-				if err != nil {
-						log.Println("Error parsing date:", err)
-				}
-
-				err = db.InsertNews(database, item.Title, item.Link, item.Desc, pubTime)
-				if err != nil {
-					fmt.Printf("Error inserting RDF item into DB: %v\n", err)
-				}
-			}
-		} else {
-			items, err := fetch.FetchRSSFeed(url)
-			if err != nil {
-				fmt.Printf("Error fetching RSS feed from %s: %v\n", url, err)
-				continue
-			}
-
-			for _, item := range items {
-				fmt.Printf("- %s\n  Link: %s\n  Description: %s\n\n", item.Title, item.Link, item.Description)
-
-				pubTime, err := util.ParsePublishedAt(item.PublishedAt)
-				if err != nil {
-						log.Println("Error parsing date:", err)
-				}
-
-				err = db.InsertNews(database, item.Title, item.Link, item.Description, pubTime)
-				if err != nil {
-					fmt.Printf("Error inserting RSS item into DB: %v\n", err)
-				}
-			}
-		}
-	}
+	// バッチスケジューラーを起動
+	StartBatchScheduler(newsController)
 }

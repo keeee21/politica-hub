@@ -1,4 +1,4 @@
-package models
+package model
 
 type RDFItem struct {
 	Title string `xml:"title"`
