@@ -20,8 +20,8 @@ func StartBatchScheduler(newsController controller.INewsController) {
 	// cron スケジューラーを作成
 	c := cron.New()
 
-	// 毎時 0分 に実行
-	c.AddFunc("*/3 * * * *", func() {
+	// 30分毎 に実行
+	c.AddFunc("*/30 * * * *", func() {
 		log.Println("Running batch job...")
 		newsController.FetchAndStoreFeeds(urls)
 		log.Println("Batch job completed.")
